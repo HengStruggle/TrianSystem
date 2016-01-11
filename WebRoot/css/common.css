@@ -1,0 +1,117 @@
+body{
+	margin: 0;
+	font-family: "宋体";
+}
+
+.center{margin: 0 auto;}
+.divleft{float: left;}
+.divright{float: right;}
+.clear{clear: both;}
+
+#nav{
+	height: 80px;
+	background: -moz-linear-gradient(top,#ffffff,rgb(224,224,224));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#ffffff), to(rgb(224,224,224)));
+	background: -ms-linear-gradient(top,#ffffff,rgb(224,224,224));
+	border-bottom: solid rgb(71,141,205);
+}
+
+#nav_center{width: 1050px;height: 80px;}
+
+#nav_left{
+	font-family: "Microsoft YaHei";
+	width: 50%;height: 80px;
+	overflow: hidden;
+}
+
+#nav_right{
+	width: 50%;height: 80px;
+	background-image: url("../images/bg_nav.png");
+	background-repeat: no-repeat;
+	background-position: 67px 50px;
+}
+
+#tip{
+	height: 16px;
+	position: relative;
+	top: 15px;left: 114px;
+	font-size: 90%;
+	overflow: hidden;
+}
+
+#nav_items{
+	position: relative;
+	top: 22px;left: 68px;
+}
+
+li.items{
+	display: inline-block;
+	width: 82px;
+	height: 22px;
+	padding-top: 3px;
+	overflow: hidden;
+	color: white;
+	margin-right: 20px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 4px;
+}
+
+li.curr_item{
+	background-color: white;
+	color: blue;
+	font-weight: bold;
+}
+
+#main{
+	width: 1050px;min-height: 520px;
+}
+/****以下用于首页和个人信息页*****/
+#input_info{
+	width: 30%;
+	background-color: rgb(238,241,248);
+}
+
+#show_info{
+	width: 68%;
+	background-color: rgb(255, 249, 215);
+}
+
+.info_win{
+	height: 420px;
+	margin: 40px 0 40px 0;
+	box-shadow: 2px 2px 5px #888888;
+}
+
+/****以上用于首页和个人信息页*****/
+
+
+#bottom{
+	text-align: center;
+	background-color: rgb(238,241,248);
+}
+
+.blue_bar{
+	background: -moz-linear-gradient(top,rgb(56,156,216),rgb(22,120,190));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(rgb(56,156,216)), to(rgb(22,120,190)));
+	background: -ms-linear-gradient(top,rgb(56,156,216),rgb(22,120,190));
+	height: 25px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	color: white;
+	padding: 20px 0 0 30px;
+}
+
+.common_border{
+	border: 1px solid blue;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.baseline{margin-top: -3px;}
+.main_area{padding: 20px 30px 30px 30px;}
+
+.bottomline{
+	height: 2px;
+	background-color: rgb(71,141,205);
+}
