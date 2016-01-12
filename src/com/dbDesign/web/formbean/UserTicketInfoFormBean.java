@@ -3,7 +3,7 @@ package com.dbDesign.web.formbean;
 import net.sf.json.JSONObject;
 
 public class UserTicketInfoFormBean {
-	
+
 	private String username;
 	private String train_no;
 	private String departure;
@@ -14,7 +14,7 @@ public class UserTicketInfoFormBean {
 	private String seat_no;
 	private int seatlevel;
 	private int ticketprice;
-	
+
 	public int getTicketprice() {
 		return ticketprice;
 	}
@@ -95,12 +95,12 @@ public class UserTicketInfoFormBean {
 		this.username = username;
 	}
 
-	public static JSONObject fromJson(String username,String train_no,
-			String departure,String terminal,String startdate,
-			String starttime,String arrivaltime,String seat_no,
-			int seatlevel, int ticketprice){
+	public static JSONObject fromJson(String username, String train_no,
+			String departure, String terminal, String startdate,
+			String starttime, String arrivaltime, String seat_no,
+			int seatlevel, int ticketprice) {
 		JSONObject userTicketInfoJson = new JSONObject();
-		
+
 		userTicketInfoJson.put("username", username);
 		userTicketInfoJson.put("train_no", train_no);
 		userTicketInfoJson.put("departure", departure);
@@ -111,8 +111,8 @@ public class UserTicketInfoFormBean {
 		userTicketInfoJson.put("seat_no", seat_no);
 		userTicketInfoJson.put("seatlevel", seatlevel);
 		userTicketInfoJson.put("ticketprice", ticketprice);
-		
+
 		return userTicketInfoJson;
 	}
-	
+
 }

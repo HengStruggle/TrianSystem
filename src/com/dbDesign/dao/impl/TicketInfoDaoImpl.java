@@ -43,14 +43,18 @@ public class TicketInfoDaoImpl implements ITicketInfoDao {
 				int seatlevel = rs.getShort("seatlevel");
 				int ticketprice = rs.getShort("ticketprice");
 
-				HashMap<String, String>trainInfo = TrainInfoDaoImpl.findTrainInfo(train_no, starttime);
-				if(trainInfo!=null){
+				HashMap<String, String> trainInfo = TrainInfoDaoImpl
+						.findTrainInfo(train_no, starttime);
+				if (trainInfo != null) {
 					String departure = trainInfo.get("departure");
 					String terminal = trainInfo.get("terminal");
 					String arrivaltime = trainInfo.get("arrivaltime");
 					System.out.println(departure + terminal + arrivaltime);
-					
-					orderArray.add(UserTicketInfoFormBean.fromJson(username, train_no, departure, terminal, startdate, starttime, arrivaltime, seat_no, seatlevel, ticketprice));
+
+					orderArray.add(UserTicketInfoFormBean.fromJson(username,
+							train_no, departure, terminal, startdate,
+							starttime, arrivaltime, seat_no, seatlevel,
+							ticketprice));
 				}
 			}
 		} catch (Exception e) {
@@ -84,14 +88,18 @@ public class TicketInfoDaoImpl implements ITicketInfoDao {
 				String starttime = rs.getString("starttime");
 				int seatlevel = rs.getShort("seatlevel");
 				int ticketprice = rs.getShort("ticketprice");
-				
-				HashMap<String, String>trainInfo = TrainInfoDaoImpl.findTrainInfo(train_no, starttime);
-				if(trainInfo!=null){
+
+				HashMap<String, String> trainInfo = TrainInfoDaoImpl
+						.findTrainInfo(train_no, starttime);
+				if (trainInfo != null) {
 					String departure = trainInfo.get("departure");
 					String terminal = trainInfo.get("terminal");
 					String arrivaltime = trainInfo.get("arrivaltime");
-					
-					orderArray.add(UserTicketInfoFormBean.fromJson(username, train_no, departure, terminal, startdate, starttime, arrivaltime, seat_no, seatlevel, ticketprice));
+
+					orderArray.add(UserTicketInfoFormBean.fromJson(username,
+							train_no, departure, terminal, startdate,
+							starttime, arrivaltime, seat_no, seatlevel,
+							ticketprice));
 				}
 			}
 		} catch (Exception e) {

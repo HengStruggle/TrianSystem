@@ -34,34 +34,35 @@ public class GuestInfoServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		//String order = req.getParameter("order");
-		String userName = req.getParameter("username");
-
-		ITicketInfoService ticketService = new TicketInfoService();
-		JSONObject result = new JSONObject();
-		
-		//if (order.equals(ORDER_CHECK)) {
-			JSONArray resultArray = ticketService.userCheckTicket(userName);
-			if (resultArray != null) {
-				result.put("status", "success");
-				result.put("result", resultArray);
-			} else {
-				result.put("status", "error");
-			}
-//		}
-		
-		resp.setContentType("text/html"); 
-		PrintWriter out  = resp.getWriter();
-		out.print(result.toString());
-		
-		out.flush();
-		out.close();
+		doPost(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(req, resp);
+		// String order = req.getParameter("order");
+		String userName = req.getParameter("username");
+		System.out.println("username");
+
+		ITicketInfoService ticketService = new TicketInfoService();
+		JSONObject result = new JSONObject();
+
+		// if (order.equals(ORDER_CHECK)) {
+		JSONArray resultArray = ticketService.userCheckTicket(userName);
+		if (resultArray != null) {
+			result.put("status", "success");
+			result.put("result", resultArray);
+		} else {
+			result.put("status", "error");
+		}
+		// }
+
+		resp.setContentType("text/html");
+		PrintWriter out = resp.getWriter();
+		out.print(result.toString());
+
+		out.flush();
+		out.close();
 	}
 }

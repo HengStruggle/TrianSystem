@@ -1,5 +1,6 @@
 var username = '';
-var domainName = "http://localhost:8080/myDBDesign";
+//var domainName = "http://localhost:8080/myDBDesign";
+var domainName = "http://win7-1402231542:8080/myDBDesign";
 
 function userInfo(){
 	this.username;
@@ -30,7 +31,8 @@ function init(){
 		window.location.href="../myDBDesign/index.jsp";
 	}
 	else {
-		alert(username)
+		//alert(username)
+		$('a#check_page').attr('href',"../myDBDesign/check_ticket.jsp?userid=" + username);
 		showUsername();
 		getUserTicket();
 	}
@@ -62,7 +64,7 @@ function getUserTicket(){
 					userInfo[i].seat_no = re[i].seat_no;
 					userInfo[i].seatlevel = re[i].seatlevel;
 					userInfo[i].ticketprice = re[i].ticketprice;
-					var newLine = '<tr id="' + re[i].train_no  + "'" + ')"><td class="train_no"><div>' + re[i].train_no + '</div></td><td class="dep"><div>' + userInfo[i].departure + '</div></td><td class="ter"><div>' + userInfo[i].terminal + '</div></td><td class="startdate><div>"' + userInfo[i].startdate + '</div></td><td class="stattTime"><div>' + re[i].starttime + '</div></td><td class="arrivalTime"><div>' + re[i].arrivaltime + '</div></td><td class="business_sum"><div>' + re[i].seat_no + '</div></td><td class="first_sum"><div>' + re[i].seatlevel + '</div></td><td class="second_sum"><div>' + re[i].ticketprice + '</div></td></tr>';
+					var newLine = '<tr id="' + re[i].train_no  + "'" + ')"><td class="train_no"><div>' + re[i].train_no + '</div></td><td class="dep"><div>' + re[i].departure + '</div></td><td class="ter"><div>' + re[i].terminal + '</div></td><td class="startdate><div>"' + re[i].startdate + '</div></td><td class="stattTime"><div>' + re[i].starttime + '</div></td><td class="arrivalTime"><div>' + re[i].arrivaltime + '</div></td><td class="business_sum"><div>' + re[i].seat_no + '</div></td><td class="first_sum"><div>' + re[i].seatlevel + '</div></td><td class="second_sum"><div>' + re[i].ticketprice + '</div></td></tr>';
 					$('table#list').append(newLine);
 				}
 				

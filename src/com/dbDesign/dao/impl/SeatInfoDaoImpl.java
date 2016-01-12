@@ -59,7 +59,7 @@ public class SeatInfoDaoImpl implements ISeatInfoDao {
 				seatInfo.setSeatLevel(seatLevel);
 				seatInfo.setUsed(false);
 				seatInfo.setTicketPrice(rs.getShort("ticketprice"));
-				
+
 				System.out.println("座位分配成功");
 			}
 
@@ -81,7 +81,7 @@ public class SeatInfoDaoImpl implements ISeatInfoDao {
 	 */
 	public HashMap<String, Integer> getSeatInfo(String train_no,
 			String startDate) {
-
+		boolean state = false;
 		HashMap<String, Integer> result = new HashMap<String, Integer>();
 		try {
 			conn = DBHelper.getConnection();
@@ -96,15 +96,18 @@ public class SeatInfoDaoImpl implements ISeatInfoDao {
 				ps = conn.prepareStatement(sql);
 				rs = ps.executeQuery();
 				while (rs.next()) {
-					if (at == 0) {
-						result.put("business_sum", rs.getInt(1));
-						result.put("business_price", rs.getInt(2));
-					} else if (at == 1) {
-						result.put("first_sum", rs.getInt(1));
-						result.put("first_price", rs.getInt(2));
-					} else {
-						result.put("second_sum", rs.getInt(1));
-						result.put("second_price", rs.getInt(2));
+					if (rs.getInt(1) > 0) {
+						state = true;
+						if (at == 0) {
+							result.put("business_sum", rs.getInt(1));
+							result.put("business_price", rs.getInt(2));
+						} else if (at == 1) {
+							result.put("first_sum", rs.getInt(1));
+							result.put("first_price", rs.getInt(2));
+						} else {
+							result.put("second_sum", rs.getInt(1));
+							result.put("second_price", rs.getInt(2));
+						}
 					}
 				}
 				at++;
@@ -114,6 +117,8 @@ public class SeatInfoDaoImpl implements ISeatInfoDao {
 		} finally {
 			DBHelper.release(conn, ps, rs);
 		}
+		if (state == false)
+			result = null;
 		return result;
 	}
 

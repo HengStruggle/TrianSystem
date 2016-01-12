@@ -41,20 +41,18 @@ public class TrainInfoDaoImpl implements ITrainInfoDao {
 			// String sql = MessageFormat.format(SqlUtils.SELECT_TABLE, "train",
 			// contion);
 			String train_no, startTime, arrivalTime;
-			String temp = "select t1.train_no , t1.starttime , t2.arrivaltime from train t1 , train t2 where t1.train_no = t2.train_no and t1.departure = {0} and t2.terminal = {1}";
+			String temp = "select t1.train_no , t1.starttime , t2.arrivaltime from train t1 , train t2 where t1.train_no = t2.train_no and t1.departure = {0} and t2.terminal = {1} and t1.starttime < t2.arrivaltime ";
 			String sql = MessageFormat.format(temp,
 					SqlUtils.addQuot(departure), SqlUtils.addQuot(terminal));
 
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				state = true;
 
 				train_no = rs.getString(1);
 				startTime = rs.getString(2);
 				arrivalTime = rs.getString(3);
 
-				trainSeatInfo = seatInfo.getSeatInfo(train_no, startDate);
 				// int at = 0;
 				// temp =
 				// "select count(*) , ticketPrice from seat where train_no = {0} and startdate = {1} and seatlevel = {2} and isused = 0 ";
@@ -78,15 +76,18 @@ public class TrainInfoDaoImpl implements ITrainInfoDao {
 				// }
 				// at++;
 				// }
-
-				trainArray.add(TrianSeatFormBean.fromJson(train_no, departure,
-						terminal, startDate, startTime, arrivalTime,
-						trainSeatInfo.get("business_sum"),
-						trainSeatInfo.get("business_price"),
-						trainSeatInfo.get("first_sum"),
-						trainSeatInfo.get("first_price"),
-						trainSeatInfo.get("second_sum"),
-						trainSeatInfo.get("second_price")));
+				trainSeatInfo = seatInfo.getSeatInfo(train_no, startDate);
+				if (trainSeatInfo != null) {
+					state = true;
+					trainArray.add(TrianSeatFormBean.fromJson(train_no,
+							departure, terminal, startDate, startTime,
+							arrivalTime, trainSeatInfo.get("business_sum"),
+							trainSeatInfo.get("business_price"),
+							trainSeatInfo.get("first_sum"),
+							trainSeatInfo.get("first_price"),
+							trainSeatInfo.get("second_sum"),
+							trainSeatInfo.get("second_price")));
+				}
 			}
 		} catch (Exception e) {
 			new RuntimeException(e);
@@ -138,31 +139,35 @@ public class TrainInfoDaoImpl implements ITrainInfoDao {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	public static HashMap<String, String> findTrainInfo(String train_no , String starttime){
-		
+
+	public static HashMap<String, String> findTrainInfo(String train_no,
+			String starttime) {
+
 		HashMap<String, String> trainInfo = new HashMap<String, String>();
-		
-		try{
+
+		try {
 			conn = DBHelper.getConnection();
-			String condition = MessageFormat.format(SqlUtils.WHERE_CONDITION, "train_no",SqlUtils.addQuot(train_no))
-					+MessageFormat.format(SqlUtils.AND_CONDITION, "starttime",SqlUtils.addQuot(starttime));
-			String sql = MessageFormat.format(SqlUtils.SELECT_TABLE , "train "+condition);
-			
+			String condition = MessageFormat.format(SqlUtils.WHERE_CONDITION,
+					"train_no", SqlUtils.addQuot(train_no))
+					+ MessageFormat.format(SqlUtils.AND_CONDITION, "starttime",
+							SqlUtils.addQuot(starttime));
+			String sql = MessageFormat.format(SqlUtils.SELECT_TABLE, "train "
+					+ condition);
+
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
-			
-			if(rs.next()){
+
+			if (rs.next()) {
 				trainInfo.put("departure", rs.getString("departure"));
-				trainInfo.put("terminal",rs.getString("terminal"));
-				trainInfo.put("arrivaltime",rs.getString("arrivaltime"));
-			}else{
+				trainInfo.put("terminal", rs.getString("terminal"));
+				trainInfo.put("arrivaltime", rs.getString("arrivaltime"));
+			} else {
 				trainInfo = null;
-			}			
-		}catch(Exception e){
+			}
+		} catch (Exception e) {
 			new RuntimeException(e);
-		}finally{
-			DBHelper.release(conn, ps, rs);			
+		} finally {
+			DBHelper.release(conn, ps, rs);
 		}
 		return trainInfo;
 	}

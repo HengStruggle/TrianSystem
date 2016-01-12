@@ -1,5 +1,5 @@
-﻿var domainName = "http://localhost:8080/myDBDesign";
-
+﻿//var domainName = "http://localhost:8080/myDBDesign";
+var domainName = "http://win7-1402231542:8080/myDBDesign";
 var role;
 var userid,password;
 var noError = '0',errUidEmpty = '1',errPwEmpty = '2',errTooLong = '3';//错误类型

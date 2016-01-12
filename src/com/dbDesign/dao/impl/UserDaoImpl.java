@@ -26,9 +26,11 @@ public class UserDaoImpl implements IUserDao {
 		User user = null;
 		try {
 			conn = DBHelper.getConnection();
-			
-			String condition = MessageFormat.format(SqlUtils.WHERE_CONDITION, "username",SqlUtils.addQuot(userName));
-			String sql = MessageFormat.format(SqlUtils.SELECT_TABLE, "user "+condition);
+
+			String condition = MessageFormat.format(SqlUtils.WHERE_CONDITION,
+					"username", SqlUtils.addQuot(userName));
+			String sql = MessageFormat.format(SqlUtils.SELECT_TABLE, "user "
+					+ condition);
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			if (rs.next()) {
@@ -94,12 +96,15 @@ public class UserDaoImpl implements IUserDao {
 
 		try {
 			conn = DBHelper.getConnection();
-			
-			String newValue =  SqlUtils.addQuot(user.getUserName())
-					+MessageFormat.format(SqlUtils.COMMA_VALUE, SqlUtils.addQuot(user.getPassword()))
-					+MessageFormat.format(SqlUtils.COMMA_VALUE, SqlUtils.addQuot(user.getRole()));
-			String sql = MessageFormat.format(SqlUtils.INSERT_TABLE, "user",newValue);
-			
+
+			String newValue = SqlUtils.addQuot(user.getUserName())
+					+ MessageFormat.format(SqlUtils.COMMA_VALUE,
+							SqlUtils.addQuot(user.getPassword()))
+					+ MessageFormat.format(SqlUtils.COMMA_VALUE,
+							SqlUtils.addQuot(user.getRole()));
+			String sql = MessageFormat.format(SqlUtils.INSERT_TABLE, "user",
+					newValue);
+
 			int i = conn.prepareStatement(sql).executeUpdate();
 			if (i > 0) {
 				state = true;

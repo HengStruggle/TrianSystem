@@ -1,4 +1,5 @@
-var domainName = "http://localhost:8080/myDBDesign";
+//var domainName = "http://localhost:8080/myDBDesign";
+var domainName = "http://win7-1402231542:8080/myDBDesign";
 var username = '';
 
 function g(id){

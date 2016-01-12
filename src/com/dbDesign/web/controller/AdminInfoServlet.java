@@ -19,17 +19,17 @@ public class AdminInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 8781895964541196915L;
 
 	private final String ORDER_CHECK = "checkAllOrder";
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		String order = req.getParameter("order");
-		
+
 		ITicketInfoService ticketService = new TicketInfoService();
 		JSONObject result = new JSONObject();
-		
+
 		if (order.equals(ORDER_CHECK)) {
 			JSONArray resultArray = ticketService.checkAllTicket();
 			if (resultArray != null) {
@@ -39,11 +39,11 @@ public class AdminInfoServlet extends HttpServlet {
 				result.put("status", "error");
 			}
 		}
-		
-		resp.setContentType("text/html"); 
-		PrintWriter out  = resp.getWriter();
+
+		resp.setContentType("text/html");
+		PrintWriter out = resp.getWriter();
 		out.print(result.toString());
-		
+
 		out.flush();
 		out.close();
 	}

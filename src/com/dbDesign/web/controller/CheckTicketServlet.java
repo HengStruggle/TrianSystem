@@ -43,8 +43,8 @@ public class CheckTicketServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-System.out.println("查询余票");
-		
+		System.out.println("查询余票");
+
 		// 获得始发站
 		String departure = req.getParameter("departure");
 		System.out.println(departure);
@@ -59,6 +59,15 @@ System.out.println("查询余票");
 		String day = req.getParameter("day");
 		System.out.println(day);
 
+		if (Integer.valueOf(month) < 10) {
+			month = "0" + month;
+			System.out.println(month);
+		}
+		if (Integer.valueOf(day) < 10) {
+			day = "0" + day;
+			System.out.println(day);
+		}
+
 		// 转换为SQL日期格式
 		Date startDate = Date.valueOf(year + "-" + month + "-" + day);
 		ITrainInfoService service = new TrianInfoService();
@@ -66,19 +75,19 @@ System.out.println("查询余票");
 		JSONArray resultArray = service.checkTrain(departure, terminal,
 				startDate.toString());
 		JSONObject result = new JSONObject();
-		
-		if(resultArray!=null){
-				result.put("status", "success");
-				result.put("result", resultArray);
-				System.out.println("查询成功！");
-		}else{
-			result.put("status","error");
+
+		if (resultArray != null) {
+			result.put("status", "success");
+			result.put("result", resultArray);
+			System.out.println("查询成功！");
+		} else {
+			result.put("status", "error");
 			System.out.println("查询失败！");
 		}
-		resp.setContentType("text/html"); 
-		PrintWriter out  = resp.getWriter();
+		resp.setContentType("text/html");
+		PrintWriter out = resp.getWriter();
 		out.print(result.toString());
-		
+
 		out.flush();
 		out.close();
 	}
